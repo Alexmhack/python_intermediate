@@ -17,7 +17,7 @@ email_conn.starttls()
 message = MIMEMultipart("alternative")
 message['Subject'] = "Hello there"
 message['From'] = from_email
-message['To'] = to_email
+# message['To'] = to_list
 
 plain_text = "Testing plain message"
 html_text = """
@@ -35,3 +35,5 @@ part_2 = MIMEText(html_text, 'html')
 
 message.attach(part_1)
 message.attach(part_2)
+
+print(message.as_string())
