@@ -12,10 +12,15 @@ def get_template(path):
 	return open(file_path).read()
 
 
-template_text = get_template(r'templates\email_message.txt').format(
-	name='Pranav',
-	date='15th Aug, 18',
-	total=560
-)
+def render_context(template_string, context):
+	return template_string.format(**context)
 
-print(template_text)
+
+template = get_template(r'templates\email_message.txt')
+context = {
+	'name': 'Pranav',
+	'date': '15th Aug, 18',
+	'total': 599
+}
+
+print(render_context(template, context))
