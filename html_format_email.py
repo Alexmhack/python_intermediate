@@ -13,3 +13,8 @@ to_list = [username]
 email_conn = SMTP(host, port)
 email_conn.ehlo()
 email_conn.starttls()
+
+message = MIMEMultipart("alternative")
+message['Subject'] = "Hello there"
+message['From'] = from_email
+message['To'] = to_email
