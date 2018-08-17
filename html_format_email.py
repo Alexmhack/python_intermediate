@@ -17,7 +17,7 @@ try:
 
 	message = MIMEMultipart("alternative")
 	message['Subject'] = "Hello there"
-	message['From'] = from_email
+	message['From'] = 'Python Developer'
 	message['To'] = to_list[0]
 
 	plain_text = "Testing plain message"
