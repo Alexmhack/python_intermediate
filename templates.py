@@ -12,4 +12,10 @@ def get_template(path):
 	return open(file_path).read()
 
 
-print(get_template(r'templates\email_message.txt'))
+template_text = get_template(r'templates\email_message.txt').format(
+	name='Pranav',
+	date='15th Aug, 18',
+	total=560
+)
+
+print(template_text)
