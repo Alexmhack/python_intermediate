@@ -43,3 +43,22 @@ Sending email is as simple as using the sendmail method with three arguemnts
 ```
 email_conn.quit()
 ```
+
+# Send HTML format email
+For sending html formatted email we need to use the MIMEMultipart and MIMEText from email.mime and
+create html message and attach it to the email message, then send like the usual sendmail function
+but replacing the message with our email message.
+
+```
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
+message = MIMEMultipart("alternative")
+message['Subject'] = "Hello there"
+message['From'] = from_email
+message['To'] = to_list[0]
+
+part_2 = MIMEText(html_text, 'html')
+message.attach(part_2)
+email_conn.sendmail(from_email, to_list, message.as_string())
+```
