@@ -7,4 +7,9 @@ def get_template_path(path):
 	return file_path
 
 
-print(get_template_path(r'templates\email_message.txt'))
+def get_template(path):
+	file_path = get_template_path(path)
+	return open(file_path).read()
+
+
+print(get_template(r'templates\email_message.txt'))
