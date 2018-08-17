@@ -29,3 +29,9 @@ html_text = """
 	</body>
 </html>
 """
+
+part_1 = MIMEText(plain_text, 'plain')
+part_2 = MIMEText(html_text, 'html')
+
+message.attach(part_1)
+message.attach(part_2)
