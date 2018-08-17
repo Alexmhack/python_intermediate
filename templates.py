@@ -27,3 +27,5 @@ context = {
 
 print(render_context(template, context))
 print(render_context(template_html, context))
+
+render_html = render_context(template_html, context)
