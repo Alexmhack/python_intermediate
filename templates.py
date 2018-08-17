@@ -17,6 +17,8 @@ def render_context(template_string, context):
 
 
 template = get_template(r'templates\email_message.txt')
+template_html = get_template(r'templates\email_message.html')
+
 context = {
 	'name': 'Pranav',
 	'date': '15th Aug, 18',
@@ -24,3 +26,4 @@ context = {
 }
 
 print(render_context(template, context))
+print(render_context(template_html, context))
