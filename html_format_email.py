@@ -17,7 +17,7 @@ email_conn.starttls()
 message = MIMEMultipart("alternative")
 message['Subject'] = "Hello there"
 message['From'] = from_email
-# message['To'] = to_list
+message['To'] = to_list[0]
 
 plain_text = "Testing plain message"
 html_text = """
