@@ -18,3 +18,14 @@ message = MIMEMultipart("alternative")
 message['Subject'] = "Hello there"
 message['From'] = from_email
 message['To'] = to_email
+
+plain_text = "Testing plain message"
+html_text = """
+<html>
+	<head></head>
+	<body>
+		<h2>Hello Sir</h2>
+		<p>This is me, <a href="https://python.org">python!</a></p>
+	</body>
+</html>
+"""
