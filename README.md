@@ -62,3 +62,6 @@ part_2 = MIMEText(html_text, 'html')
 message.attach(part_2)
 email_conn.sendmail(from_email, to_list, message.as_string())
 ```
+
+We create a new file for rendering context in our template, there is a seperate function for each
+process, we get the template path from templates folder that has our email template file
