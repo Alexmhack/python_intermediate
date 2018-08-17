@@ -5,3 +5,6 @@ def get_template_path(path):
 	if not os.path.isfile(file_path):
 		raise Exception(f"{file_path} is not a valid template path...")
 	return file_path
+
+
+print(get_template_path(r'templates\email_message.txt'))
