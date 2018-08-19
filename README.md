@@ -141,10 +141,10 @@ The tuples inside the lists say > (*row heading*, *row data*)
 	writer.writerow(['Append row', 'append description', 'append summary'])
 ```
 
-```
 
 *csv.DictWriter* will be more detailed data filling way, which sometimes is very useful 
 and powerful way of writing data with python csv module
+```
 ...
 	fieldnames = ['Title', 'Description', 'Summary']
 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
