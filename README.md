@@ -109,3 +109,44 @@ with open('data.csv', 'r') as csvfile:
 	for row in reader:
 		print(row)
 ```
+
+There is also *DictReader* and *DictWriter* in csv module for reading and writing dict
+data, there is very less difference in csv.reader and csv.DictReader 
+
+The output of csv.reader(csvfile) will look something like this
+
+```
+['Title', 'Description', 'Summary']
+['New row', 'Awesome description for row', 'Awesome summary']
+['Append row', 'append description', 'append summary']
+['Row3', 'Row3', 'Row3']
+```
+
+Whereas the output of csv.DictReader is a more detailed one,
+
+```
+OrderedDict([('Title', 'New row'), ('Description', 'Awesome description for row'), ('Summary', 'Awesome summary')])
+OrderedDict([('Title', 'Append row'), ('Description', 'append description'), ('Summary', 'append summary')])
+OrderedDict([('Title', 'Row3'), ('Description', 'Row3'), ('Summary', 'Row3')])
+```
+
+The tuples inside the lists say > (*row heading*, *row data*)
+
+**csv.DictWriter and csv.writer**
+
+*csv.writer* has this simple look and feel
+```
+...
+	writer = csv.writer(csvfile)
+	writer.writerow(['Append row', 'append description', 'append summary'])
+```
+
+```
+
+*csv.DictWriter* will be more detailed data filling way, which sometimes is very useful 
+and powerful way of writing data with python csv module
+...
+	fieldnames = ['Title', 'Description', 'Summary']
+	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+	writer.writerow({'Title': 'Row3', 'Description': 'Row3', 'Summary': 'Row3'})
+```
