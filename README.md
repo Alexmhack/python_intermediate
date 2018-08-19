@@ -65,3 +65,47 @@ email_conn.sendmail(from_email, to_list, message.as_string())
 
 We create a new file for rendering context in our template, there is a seperate function for each
 process, we get the template path from templates folder that has our email template file
+
+# Read CSV Files with Python
+Python module for handling csv files and data is "csv"
+
+```
+import csv
+```
+
+To create a new csv file we can use the python in-built *with* command with *open* method
+
+```
+with open('data.csv', 'w+') as csvfile:
+	writer = csv.writer(csvfile)
+	writer.writerow(['Title', 'Description'])
+	writer.writerow(['New row', 'Awesome description for row'])	
+```
+
+if file data.csv does not exist then *open* creates one and with opens the file as *csvfile
+*. csv has writer function which takes in a csv file object and creates a writer for 
+csvfile. Now using the writerow functions we can write rows in our csv file.
+
+**W+** in open() means we are opening this file in write mode, which means everything we do
+with csv file will be written into it and existing content of the file will be erased.
+
+**Appending CSV data**
+
+```
+import csv
+
+with open('data.csv', 'a') as csvfile:
+	writer = csv.writer(csvfile)
+	writer.writerow(['Append row', 'append description', 'append summary'])
+```
+
+**Reading CSV data**
+
+```
+import csv
+
+with open('data.csv', 'r') as csvfile:
+	reader = csv.reader(csvfile)
+	for row in reader:
+		print(row)
+```
