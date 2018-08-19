@@ -4,8 +4,8 @@ from email.mime.text import MIMEText
 
 host = "smtp.gmail.com"
 port = 587
-username = "78030psg@gmail.com"
-password = "thisisauselessemail"
+username = "ghostg@protocol.com"
+password = "fallout"
 
 from_email = username
 to_list = [username]
