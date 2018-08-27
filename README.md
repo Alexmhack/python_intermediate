@@ -66,6 +66,48 @@ email_conn.sendmail(from_email, to_list, message.as_string())
 We create a new file for rendering context in our template, there is a seperate function for each
 process, we get the template path from templates folder that has our email template file
 
+# Flask
+Python supports backend web development using the module Flask. There are more options like
+Django but Flask lets you get started in a lot less amount of time.
+
+We are going to use the SQL database with flask and so we will install the flask_sqlalchemy
+package using pip
+
+**command prompt**
+```
+pip install flask_sqlalchemy
+```
+
+We import SQLAlchemy from flask_sqlalchemy and create an instance of it
+
+**python_flask/models.py**
+```
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
+```
+
+Next we create a model just like we do in Django using 
+
+```
+from django import models
+
+class SampleModel(models.Model):
+	...
+```
+
+We do the same thing in Flask using the instance we just created and name our model Flight
+which has four fields namely id, origin, destination, duration which ofcourse matches with
+the properties of a flight
+
+```
+class Flight(db.Model):
+	__tablename__ = "flights"
+	id = db.Column(db.Integer, primary_key=True)
+	origin = db.Column(db.String, nullable=False)
+	destination = db.Column(db.String, nullable=False)
+	duration = db.Column(db.Integer, nullable=False)
+```
+
 # Read CSV Files with Python
 Python module for handling csv files and data is "csv"
 
