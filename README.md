@@ -108,6 +108,23 @@ class Flight(db.Model):
 	duration = db.Column(db.Integer, nullable=False)
 ```
 
+**Passenger model**
+
+Every flight has to have passengers in it so we create another model or another table which
+will separately be for passengers. *In databases and ORM we work on this principle that every
+model has its own table*. Here we need to connect the tables passengers and flights with some
+property or basis so that we can say A passenger is travelling with F flight. We connect the 
+databases using foreignkey and so each passenger has an id, name, and flight id with which 
+the passenger is travelling.
+
+```
+class Passenger(db.Model):
+	__tablename__ = "passengers"
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String, nullable=False)
+	flight_id = db.Column(db.Integer, db.ForeignKey("flights.id"), nullable=False)
+```
+
 # Read CSV Files with Python
 Python module for handling csv files and data is "csv"
 
@@ -124,8 +141,8 @@ with open('data.csv', 'w+') as csvfile:
 	writer.writerow(['New row', 'Awesome description for row'])	
 ```
 
-if file data.csv does not exist then *open* creates one and with opens the file as *csvfile
-*. csv has writer function which takes in a csv file object and creates a writer for 
+if file data.csv does not exist then *open* creates one and with opens the file as *csvfile*
+. csv has writer function which takes in a csv file object and creates a writer for 
 csvfile. Now using the writerow functions we can write rows in our csv file.
 
 **W+** in open() means we are opening this file in write mode, which means everything we do
