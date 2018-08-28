@@ -125,6 +125,45 @@ class Passenger(db.Model):
 	flight_id = db.Column(db.Integer, db.ForeignKey("flights.id"), nullable=False)
 ```
 
+After creating the models all we need to do is import our models in another file and connect
+to our postgresql database and run 
+
+**python_flask/create.py**
+```
+def main():
+	db.create_all()
+```
+
+# API Request
+Python has built in module for url requests, responses, json data etc. Import the module 
+using ```improt requests```. *requests* support many methods like GET, POST, PUT, DELETE etc.
+
+**python_requests/fizer_api.py**
+```
+import requests
+
+res = requests.get("http://api.fixer.io/latest/?base=USD&symbols=EUR")
+print(res.text)
+```
+
+using .text on response from the get method to an url will print the response send by the
+server on accessing the url, if the data send by server is in json format we use .json()
+
+**python_requests/fizer_api.py**
+```
+data = res.json()
+print(data)
+```
+
+**NOTE:** fixer api is not supporting requests through our method, read the fixer docs for more info
+
+To get the status_code send by the server use .status_code
+
+```
+res = requests.get("http://api.fixer.io/latest/?base=USD&symbols=EUR")
+print(res.status_code)
+```
+
 # Read CSV Files with Python
 Python module for handling csv files and data is "csv"
 
