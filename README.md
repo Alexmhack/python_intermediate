@@ -248,3 +248,31 @@ and powerful way of writing data with python csv module
 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 	writer.writerow({'Title': 'Row3', 'Description': 'Row3', 'Summary': 'Row3'})
 ```
+
+For writing your fieldnames at the top of csv file and giving the columns heading we can use
+the csv method ```writer.writeheader()```
+
+**Function for appending data**
+We have created a file with two functions namely *get_length* for getting the total length 
+of the csv file or for getting the last row of file on which data exists, and the other 
+function is *append_data* that uses the same logic as we used to append data in csv file but
+just takes in some parameters like the path of the file, name for the name and email for 
+their columns. We give each row and id using the function *get_length*.
+
+**There are some new features that we used here:**
+
+1. Writing heading for columns using ```writer.writeheader()```
+2. Writing the headers only when the file is empty
+3. Getting the length of csv file using ```get_length(file_path)``` fucntion
+4. Checking if length is one then giving an id of *1*
+5. Writing rows by passing values from arguments
+6. Solve the problem of new line on each append using ```newline=''``` while opening file
+
+	**python_csv/append_function.py**
+	```
+	with open('data.csv', 'a', newline='') as csvfile:
+		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+		if next_id == 0:
+			writer.writeheader()
+			next_id = 1		
+	```
