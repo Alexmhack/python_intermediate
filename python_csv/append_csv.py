@@ -8,4 +8,7 @@ with open('data.csv', 'a') as csvfile:
 with open('data.csv', 'a') as csvfile:
 	fieldnames = ['Title', 'Description', 'Summary']
 	writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+	# writes the fieldnames (heading) for columns
+	writer.writeheader()
 	writer.writerow({'Title': 'Row3', 'Description': 'Row3', 'Summary': 'Row3'})
