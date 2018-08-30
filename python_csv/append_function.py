@@ -13,7 +13,9 @@ def append_data(file_path, name, email):
 	next_id = get_length(file_path)
 	with open('data.csv', 'a', newline='') as csvfile:
 		writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-		writer.writeheader()
+		if next_id == 0:
+			writer.writeheader()
+			next_id = 1
 		writer.writerow({
 			"id": next_id,
 			"name": name,
