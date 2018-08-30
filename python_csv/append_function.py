@@ -15,3 +15,6 @@ def append_data(file_path, name, email):
 			"name": name,
 			"email": email
 		})
+
+
+append_data("data.csv", "Alex", "Alex@code.com")
