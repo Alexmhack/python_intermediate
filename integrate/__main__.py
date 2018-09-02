@@ -5,7 +5,12 @@ from data_manager import find_user
 parser = ArgumentParser(prog="integrate", usage="%(prog)s [options]",
 	description="Run python codes for handling csv data using the commands and options")
 
-parser.add_argument("--user_id", type=int, help="enter the user's id for displaying user details")
+parser.add_argument(
+	"-id",
+	"--user_id",
+	type=int,
+	help="enter the user's id for displaying user details"
+)
 
 args = parser.parse_args()
 
