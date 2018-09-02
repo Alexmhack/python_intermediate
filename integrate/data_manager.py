@@ -1,7 +1,9 @@
 import csv
 
+FILE_PATH = "python_csv/data.csv"
+
 def find_user(user_id=None, user_email=None):
-	with open('data.csv') as csvfile:
+	with open(FILE_PATH) as csvfile:
 		reader = csv.DictReader(csvfile)
 		for row in reader:
 			row_id = int(row.get("id"))
@@ -32,7 +34,7 @@ def find_user(user_id=None, user_email=None):
 		if unknown_email and found_id is not None:
 			return f"USER EMAIL: {unknown_email} NOT FOUND BUT USER ID: {found_id}"
 		if unknown_id is not None:
-			if found_email:
+			if found_email is not None:
 				return f"USER ID: {unknown_id} NOT FOUND BUT FOUND EMAIL: {found_email}"
-			return f"USER ID: {unknown_id} AND USER EMAIL: {user_email} NOT FOUND"
+			return f"USER ID: {unknown_id} NOT FOUND AND EMAIL NOT PROVIDED"
 	return None
