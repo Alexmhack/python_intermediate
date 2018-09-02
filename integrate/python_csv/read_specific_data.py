@@ -16,18 +16,15 @@ def find_user(user_id=None, user_email=None):
 						else:
 							unknown_email = user_email
 							found_id = user_id
-							break
 					else:
 						unknown_id = int(user_id)
 						if user_email == row.get("email"):
 							found_email = user_email
-						break
 				else:
 					if int(user_id) == row_id:
-							return row
+						return row
 					else:
 						unknown_id = int(user_id)
-						break
 
 		if unknown_email and found_id is not None:
 			return f"USER EMAIL: {unknown_email} NOT FOUND BUT USER ID: {found_id}"
