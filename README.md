@@ -330,4 +330,142 @@ access.
 
 Run the command on a admin cmd or refer to stackoverflow for this [problem](https://stackoverflow.com/questions/44044298/permissionerror-errno-13-permission-denied-c-program-files-python35-lib)
 
+**CORRECTIONS COMING SOON**
 
+**Finding specific row**
+
+So far we have been reading, writing, editing, appending data but now we will be 
+writing simple ```if else``` logic for finding a specific row or we can say a specific
+user in context to our data in **data.csv** file.
+
+For that we will be simply iterating over the whole data.csv file and checking if the
+row contains the data we are looking for, if yes then we fetch the whole row else
+print not found error
+
+**python_csv/read_specific_data.py**
+```
+import csv
+
+def find_user(user_id=None, user_email=None):
+	with open('data.csv') as csvfile:
+		reader = csv.DictReader(csvfile)
+		for row in reader:
+			row_id = int(row.get("id"))
+			unknown_id = None
+			unknown_email = None
+			found_email = None
+```
+
+In the above code there is nothing new, we just put all our opening iterating logic 
+inside a function so using this we can call our function with id of any user and
+the function will try to find it.
+
+Notice all the None values, they are referenced before hand in every row of the file
+because we will be using them for checking purposes in the end of the function
+
+**python_csv/read_specific_data.py**
+```
+	.....
+			if user_id is not None:
+				if user_email is not None:
+					if int(user_id) == row_id:
+						if user_email == row.get("email"):
+							return row
+						else:
+							unknown_email = user_email
+							found_id = user_id
+							break
+```
+
+We have used a very simple if else logic which says that inside our function if we have
+passed in the argument user_id i.e. if user_id is been passed then check if user_email
+has also been passed.
+
+If both of them have been passed then we simply check the user_id first inside the 
+data.csv file by converting the uesr_id from data.csv file into **int** because it
+comes in as a **str**.
+
+If user_id is found then check if user_email exists if yes then return the whole row
+if user_email is not found then in the else clause we set **unknown_email** which
+we defined as a ```None``` value at the beginning of ```for``` loop to our 
+**user_email** and since we found our user_id we set ```found_id = user_id```
+
+We added a break in else statement because we don't wanna be running the after logic 
+and simply pass on to next row in file.
+
+
+**python_csv/read_specific_data.py**
+```
+		...
+			if user_id is not None:
+				if user_email is not None:
+					if int(user_id) == row_id:
+						if user_email == row.get("email"):
+							return row
+						else:
+							unknown_email = user_email
+							found_id = user_id
+							break
+					else:
+						unknown_id = int(user_id)
+						if user_email == row.get("email"):
+							found_email = user_email
+						break
+				else:
+					if int(user_id) == row_id:
+							return row
+					else:
+						unknown_id = int(user_id)
+						break
+```
+
+In the remaining logic we check if the user_id is not equal to row_id then we step into
+the else statement which simply sets the ```unknown_id = user_email``` so that we can 
+use it at last and also we do a simple checking of **user_email** so that we can say
+if id and email both are not found or either one of them is found
+
+**Don't worry if you don't understand the logic now, read the code a couple of times
+and everything will start relating to each other.**
+
+**python_csv/read_specific_data.py**
+```
+def find_user(user_id=None, user_email=None):
+	with open('data.csv') as csvfile:
+		reader = csv.DictReader(csvfile)
+		for row in reader:
+			row_id = int(row.get("id"))
+			unknown_id = None
+			unknown_email = None
+			found_email = None
+			if user_id is not None:
+				if user_email is not None:
+					if int(user_id) == row_id:
+						if user_email == row.get("email"):
+							return row
+						else:
+							unknown_email = user_email
+							found_id = user_id
+							break
+					else:
+						unknown_id = int(user_id)
+						if user_email == row.get("email"):
+							found_email = user_email
+						break
+				else:
+					if int(user_id) == row_id:
+							return row
+					else:
+						unknown_id = int(user_id)
+						break
+
+		if unknown_email and found_id is not None:
+			return f"USER EMAIL: {unknown_email} NOT FOUND BUT USER ID: {found_id}"
+		if unknown_id is not None:
+			if found_email:
+				return f"USER ID: {unknown_id} NOT FOUND BUT FOUND EMAIL: {found_email}"
+			return f"USER ID: {unknown_id} AND USER EMAIL: {user_email} NOT FOUND"
+	return None
+```
+
+If nothing gets returned then our last two if statements run and print the not found
+with details
