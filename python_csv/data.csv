@@ -1,2 +1,10 @@
-id,name,email
-1,Alex,Alex@code.com
+id,name,email,amount,sent
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True
+1,alex,alex@gmail.com,599.99,True

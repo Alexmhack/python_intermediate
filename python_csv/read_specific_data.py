@@ -7,6 +7,7 @@ def find_user(user_id=None, user_email=None):
 			row_id = int(row.get("id"))
 			unknown_id = None
 			unknown_email = None
+			found_email = None
 			if user_id is not None:
 				if user_email is not None:
 					if int(user_id) == row_id:
@@ -37,5 +38,5 @@ def find_user(user_id=None, user_email=None):
 	return None
 
 
-user_1 = find_user(1, "alex@gmail.com")
+user_1 = find_user(10, "ale@gmail.com")
 print(user_1)
