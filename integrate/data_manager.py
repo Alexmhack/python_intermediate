@@ -1,6 +1,8 @@
+import os
+from pathlib import Path
 import csv
 
-FILE_PATH = "python_csv/data.csv"
+FILE_PATH = os.path.join(os.path.dirname(__file__), 'data.csv')
 
 def find_user(user_id=None, user_email=None):
 	with open(FILE_PATH) as csvfile:
