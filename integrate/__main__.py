@@ -19,6 +19,12 @@ parser.add_argument(
 	help="enter the user's email for displaying user details"
 )
 
+parser.add_argument(
+	"type",
+	type=str,
+	choices=['view', 'message']
+)
+
 args = parser.parse_args()
 
 if args.user_id:
