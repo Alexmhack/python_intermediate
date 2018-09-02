@@ -276,3 +276,58 @@ their columns. We give each row and id using the function *get_length*.
 			writer.writeheader()
 			next_id = 1		
 	```
+
+**Editing CSV data using temporary file**
+
+In this section we are going to create a temporary file while our code is running and 
+edit our changes first in the temporary file so as to not disturb or risk our original
+CSV file and then when our editing is done with the CSV data inside the temporary file
+we are going to merge the temporary file with the original CSV file.
+
+For our purpose of creating a temp file, python has built-in modules for that.
+
+**python_csv/editing_csv_data.py**
+```
+import csv
+import shutil
+from tempfile import NamedTemporaryFile
+```
+
+the tempfile module lets us create a named temporary file with a name that shows up in 
+the directory unlike the tempfile.TemporaryFile and these files are deleted if closed 
+```NamedTemporaryFile(delete=True)``` which is by default, we can set delete
+to False for keeping the file.
+
+**python_csv/editing_csv_data.py**
+```
+temp_file = NamedTemporaryFile(delete=False)
+```
+
+We can open this file just like we open ordinary files using the ```with open()```.
+For more checkout the [temfile](https://docs.python.org/3/library/tempfile.html) docs.
+
+Then again we just create reader and writer using csv 
+
+**python_csv/editing_csv_data.py**
+```
+with open(FILE_NAME, 'wb', , newline='') as csvfile, temp_file:
+	reader = csv.DictReader(csvfile)
+	fieldnames = ['id', 'name', 'email', 'amount', 'sent']
+	writer = csv.DictWriter(temp_file, fieldnames=fieldnames)
+```
+
+Notice that we read the original file and we write to the temporary file
+
+**NOTE:** [tempfile](https://docs.python.org/3/library/tempfile.html) module in python creates a temporary file which gets stored in the
+temp folder of windows ```C:/Windows/Temp``` The file is not deleted if delete=False
+is provided. Temp file requires the data to be inserted in bytes format not string
+and csv.writer or csv.DictWriter writes data in files in string format which
+raises an error ```TypeError: a bytes-like object is required, not 'str'```
+
+When you run shutil.move for the temp file that will raise another error ```Permis
+sionDeniedError [error 13]``` because for accessing temp file we need admin 
+access.
+
+Run the command on a admin cmd or refer to stackoverflow for this [problem](https://stackoverflow.com/questions/44044298/permissionerror-errno-13-permission-denied-c-program-files-python35-lib)
+
+
