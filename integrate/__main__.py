@@ -12,7 +12,16 @@ parser.add_argument(
 	help="enter the user's id for displaying user details"
 )
 
+parser.add_argument(
+	"-e",
+	"--email",
+	type=str,
+	help="enter the user's email for displaying user details"
+)
+
 args = parser.parse_args()
 
-print(args.user_id)
-print(find_user(user_id=args.user_id))
+if args.user_id:
+	print(find_user(user_id=args.user_id))
+if args.email:
+	print(find_user(user_email=args.email))
