@@ -469,3 +469,259 @@ def find_user(user_id=None, user_email=None):
 
 If nothing gets returned then our last two if statements run and print the not found
 with details
+
+# Command Line Integration
+In this part of the python intermediate tutorial series we are going to create a command line
+integrated app using our python_csv folder and all the files in it.
+
+We will create a folder for this purpose and another folder inside that in which all our files
+will be moved that we created in CSV Tutorial, to keep simple for us to type in the command
+prompt to trigger code we are gonna keep the name of the main folder simple.
+
+Name the folder **integrate**. Your project structure should look like
+
+```
+Folder PATH listing for volume Windows
+Volume serial number is ****-****
+C:.
+├───integrate
+│   └───python_csv
+├───python_csv
+├───python_emailing
+├───python_flask
+│   └───__pycache__
+├───python_requests
+├───templates
+└───__pycache__
+```
+
+You can look at your project tree from the cmd using, all the folders inside the current 
+folder will appear in a tree format
+
+**cmd**
+```
+...\python_intermediate> tree
+```
+
+Create a new file named __init__.py inside the **integrate** folder, to see how python module commands works we have to know what runs them. Now run ```python integrate``` from the parent folder where integrate folder lies.
+
+**cmd**
+```
+...\python_intermediate> python integrate
+
+... can't find '__main__' module in 'integrate'
+```
+
+Python says it cannot find a main module so create one inside integrate folder 
+
+If you have set sublime text to open from **cmd** with subl command then enter the below
+code or just create a new file in the integrate folder and name it __main__.py
+
+**cmd**
+```
+...\python_intermediate> subl __main__.py
+```
+
+Now run the ```python integrate``` command again. No results because we have no code to run
+
+You can enter simple python code like printing something on terminal from the __main__.py file
+
+**integrate/__main__.py**
+```
+print("hello world")
+```
+
+**cmd**
+```
+.../intergrate> python integrate
+hello world
+```
+
+This means for running code we have to write python code inside the **__main__.py** file
+
+**NOTE:** There is a very detailed tutorial on creating Parser for command-line options, 
+arguments and sub-commands on the [Realpython](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/). In this section
+this is what we are gonna do, we are going to create a command-line app in python
+
+For that we are going to use [Argparse](https://docs.python.org/3/library/argparse.html)
+which has a lot of tools and features for creating simple to advanced command-line app
+
+**__main__.py**
+```
+from argparse import ArgumentParser
+
+from data_manager import find_user
+
+parser = ArgumentParser(prog="integrate", usage="%(prog)s [options]",
+	description="Run python codes for handling csv data using the commands and options")
+
+parser.add_argument("--user_id", type=int, help="enter the user's id for displaying user details")
+
+args = parser.parse_args()
+
+print(args)
+print(args.user_id)
+```
+
+We import the ArgumentParser from argparse which is used to create a parser through
+which we can add arguments. At first we just add a simple argument **--user_id** 
+which is of ```type=int``` and just print the args and the user_id from args
+
+**cmd**
+```
+> python integrate --user_id 10
+(Namespace=10)
+10
+```
+
+Our args and the user_id gets printed if we don't pass in any id
+
+**cmd**
+```
+> python integrate --user_id
+(Namespace=None)
+None
+```
+
+Now making this command functional. 
+
+1. Create a new file **data_manager.py**
+2. Copy the code from **python_csv/read_specific_data.py** into **data_manager.py**
+3. Import find_user function into **__main__.py**
+4. Call ```find_user(user_id=args.user_id)``` by passing args.user_id and print it
+5. run ```python integrate --user_id 10```
+
+**cmd**
+```
+4
+USER ID: 4 NOT FOUND AND EMAIL NOT PROVIDED
+```
+
+**NOTE:** In our __main__ file we import find_user from data_manager file using
+```from data_manager import find_user``` here we don't user relative import like
+```from .data_mangaer import find_user``` since the file is on the same path and 
+__main__ file enables that for us.
+
+You might be wondering that we have **data.csv** file in the integrate as well as 
+python_csv folder but we have used the **python_csv/data.csv** path because on
+using ```with open('data.csv')``` it raises error file not found so we have to
+get the whole path of the file using the **os** module
+
+**NOTE:** In our data_mangar.py file we used os.path.join to get the path of 
+**data.csv** file, if we use 
+
+```
+os.path.join(os.getcwd(), 'data.csv')
+```
+
+And then run ```python integrate --user_id 1``` it will again raise the same file not
+found error which is somewhat related to the way ```os.path.getcwd()``` 
+
+According to [documentation](https://docs.python.org/3/library/os.path.html) 
+
+```
+os.getcwd() 
+	Return a string representing the current working directory.
+```
+
+This means when we run the function from the **cmd** i.e. from **python_intermediate**
+folder we get the path of that folder instead of **python_intermediate/integrate**.
+
+Now to check this you can run the data_manager.py file by adding a print statement for
+the ```FILE_PATH``` variable
+
+```
+.../integrate> python data_manager.py
+.../integrate/data.csv
+```
+
+So for solving this problem we just need to use instead of ```os.getcwd()```
+
+**integrate/data_manager.py**
+```
+FILE_PATH = os.path.join(os.path.dirname(__file__), 'data.csv')
+```
+
+```os.path.dirname``` takes a filename as a string and returns the directory path 
+portion
+
+And ```__file__``` in python is a keyword which is the whole file path, just print
+the __file__ and you will know what I am talking about
+
+```
+print(__file__)
+```
+
+Using ```os.path.join(os.path.dirname(__file__), 'data.csv')``` returns the 'data.csv'
+path file inside **integrate** folder
+
+Run the *integrate command* again and it works perfectly.
+
+**Adding more arguments**
+
+We can also add multiple arguments doing the same function 
+
+**__main__.py**
+```
+parser.add_argument(
+	"-id",
+	"--user_id",
+	type=int,
+	help="enter the user's id for displaying user details"
+)
+```
+
+**cmd**
+```
+> python integrate -id 3
+```
+
+Will work the same way
+
+**Adding required arguments in argparse**
+
+Till now we have been using [options] that means optional arguments which starts with
+```--user_id``` and their short forms ```-id``` but we can add required arguments using
+
+```
+parser.add_argument(
+	"type",
+	type=str,
+	choices=['view', 'message']
+)
+```
+
+The ```"type"``` here is a required argument which is to be passed everytime before
+passing in the optional arguments. We have added two choices for the required argument
+```view``` and ```message```, for using it we can run
+
+**cmd**
+```
+.../python_intermediate> python integrate view -id 2
+# RESULTS SHOWN HERE
+
+.../python_intermediate> python integrate message
+Sending message
+```
+
+We accessed the argument ```type``` from the args using
+
+```
+if args.type == "view":
+...
+if args.type = "message":
+...
+```
+
+This gives us more functionality. There is a lot more we can do with **argparse** module, be sure to checkout 
+
+1. [documentation](https://docs.python.org/3/library/argparse.html)
+2. [Real Python](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
+3. [CodingForEntrepreneurs](https://www.codingforentrepreneurs.com/projects/30-days-python/)
+
+No I am not a partener with [RealPython](https://www.realpython.com) or [
+CodingForEntrepreneurs](https://www.joincfe.com) but they are best python learning 
+websites.
+
+For more tutorials like this head on to my [site](http://www.codementor.tk) and don't 
+forget to checkout my [other](https://github.com/Alexmhack) tutorials on github.
