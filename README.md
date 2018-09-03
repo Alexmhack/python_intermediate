@@ -474,6 +474,9 @@ with details
 In this part of the python intermediate tutorial series we are going to create a command line
 integrated app using our python_csv folder and all the files in it.
 
+**NOTE:** File named as main.py are __main__.py, due to some issues with github 
+README.md representation __main__.py is not showing up
+
 We will create a folder for this purpose and another folder inside that in which all our files
 will be moved that we created in CSV Tutorial, to keep simple for us to type in the command
 prompt to trigger code we are gonna keep the name of the main folder simple.
@@ -716,7 +719,7 @@ if args.type = "message":
 This gives us more functionality. There is a lot more we can do with **argparse** module, be sure to checkout 
 
 1. [documentation](https://docs.python.org/3/library/argparse.html)
-2. [Real Python](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/).
+2. [Real Python](https://realpython.com/comparing-python-command-line-parsing-libraries-argparse-docopt-click/)
 3. [CodingForEntrepreneurs](https://www.codingforentrepreneurs.com/projects/30-days-python/)
 
 No I am not a partener with [RealPython](https://www.realpython.com) or [
@@ -725,3 +728,5 @@ websites.
 
 For more tutorials like this head on to my [site](http://www.codementor.tk) and don't 
 forget to checkout my [other](https://github.com/Alexmhack) tutorials on github.
+
+If you find any mistake in my code, please do contribute.
